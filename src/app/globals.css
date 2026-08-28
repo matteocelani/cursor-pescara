@@ -1,26 +1,292 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
+/* Light — warm surfaces, matching cursor.com/docs.
+   Text colours are pushed for contrast: body copy clears 7:1. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf9f6;
+  --foreground: #1a1913;
+  --foreground-2: #2f2e27;
+  --card: #ffffff;
+  --card-foreground: #1a1913;
+  --card-hover: #f4f3ee;
+  --popover: #ffffff;
+  --popover-foreground: #1a1913;
+  --primary: #1a1913;
+  --primary-foreground: #faf9f6;
+  --secondary: #f1f0ea;
+  --secondary-foreground: #1a1913;
+  --muted: #f1f0ea;
+  --muted-foreground: #56554f;
+  --accent: #c94600;
+  --accent-foreground: #ffffff;
+  --accent-strong: #a63a00;
+  --accent-soft: rgba(201, 70, 0, 0.08);
+  --accent-soft-hover: rgba(201, 70, 0, 0.14);
+  --code: #f4f1ea;
+  --code-border: rgba(26, 25, 19, 0.1);
+  --success: #14714f;
+  --warning: #9a6600;
+  --caution: #b8560f;
+  --destructive: #b81f45;
+  --border: #dedcd5;
+  --border-soft: rgba(26, 25, 19, 0.09);
+  --border-strong: rgba(26, 25, 19, 0.22);
+  --input: #dedcd5;
+  --ring: #504f49;
+  --radius: 0.875rem;
+}
+
+.dark {
+  --background: #14120b;
+  --foreground: #f6f5f3;
+  --foreground-2: #e2e0dc;
+  --card: #1c1a14;
+  --card-foreground: #f6f5f3;
+  --card-hover: #232118;
+  --popover: #1c1a14;
+  --popover-foreground: #f6f5f3;
+  --primary: #f6f5f3;
+  --primary-foreground: #14120b;
+  --secondary: #232118;
+  --secondary-foreground: #f6f5f3;
+  --muted: #232118;
+  --muted-foreground: #bcb8b1;
+  --accent: #ff7a29;
+  --accent-foreground: #1a0d03;
+  --accent-strong: #ff9455;
+  --accent-soft: rgba(255, 122, 41, 0.14);
+  --accent-soft-hover: rgba(255, 122, 41, 0.22);
+  --code: #1d1812;
+  --code-border: rgba(246, 245, 243, 0.1);
+  --success: #46c79c;
+  --warning: #ecc94b;
+  --caution: #ff9d4d;
+  --destructive: #ff8080;
+  --border: #302d26;
+  --border-soft: rgba(246, 245, 243, 0.1);
+  --border-strong: rgba(246, 245, 243, 0.26);
+  --input: #302d26;
+  --ring: #c2c0bf;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-foreground-2: var(--foreground-2);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-card-hover: var(--card-hover);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-hover: var(--accent-soft-hover);
+  --color-code: var(--code);
+  --color-code-border: var(--code-border);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-caution: var(--caution);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-border-soft: var(--border-soft);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-sans);
+
+  /* A notch above Cursor's own 15px base: readable without shouting. */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.3125rem;
+  --text-2xl: 1.6875rem;
+  --text-3xl: 2.125rem;
+  --text-4xl: 2.75rem;
+
+  --tracking-tightest: -0.03em;
+  --tracking-tighter: -0.025em;
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.005em;
+  --tracking-wide: 0.01em;
+
+  --radius-sm: calc(var(--radius) * 0.72);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 1.3);
+  --radius-xl: calc(var(--radius) * 1.7);
+  --radius-2xl: calc(var(--radius) * 2.1);
+
+  --ease-out-soft: cubic-bezier(0.22, 0.7, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: linear(
+    0,
+    0.42 12%,
+    0.79 24%,
+    0.98 33%,
+    1.04 40%,
+    1.02 52%,
+    1 68%
+  );
+
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-base: 320ms;
+  --duration-slow: 520ms;
 }
 
-@media (prefers-color-scheme: dark) {
+:root {
+  --header-h: 3.5rem;
+}
+
+@supports (interpolate-size: allow-keywords) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    interpolate-size: allow-keywords;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Anchors must clear the sticky level header. */
+[id] {
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Soft light bleeding from the top edge — Cursor's only texture. */
+.hero-wash {
+  background-image: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 48%,
+    rgba(255, 255, 255, 0) 76%
+  );
+}
+
+/* Warm bloom behind a heading. Decorative, never behind body copy. */
+.bloom {
+  position: relative;
+  isolation: isolate;
+}
+.bloom::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -3rem;
+  left: -4rem;
+  width: min(28rem, 90%);
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    var(--accent-soft) 0%,
+    transparent 68%
+  );
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+/* A thin light travelling around a single call to action. */
+@property --glow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes spin-glow {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+.glow-cta {
+  position: relative;
+  isolation: isolate;
+}
+.glow-cta::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--glow-angle),
+    transparent 0% 68%,
+    var(--accent) 84%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .glow-cta::before {
+    animation: spin-glow 6s linear infinite;
+  }
+}
+
+/* Cards: the hover lift the Cursor site uses — border first, then a
+   whisper of coloured shadow. */
+.card-hover {
+  transition:
+    border-color var(--duration-fast) var(--ease-out-soft),
+    box-shadow var(--duration-fast) var(--ease-out-soft);
+}
+.card-hover:hover {
+  border-color: color-mix(in oklab, var(--accent) 50%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--accent) 10%, transparent),
+    0 8px 24px -14px color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+/* Native <details> that animates open, where the browser allows it. */
+@media (prefers-reduced-motion: no-preference) {
+  details::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size var(--duration-base) var(--ease-out-soft),
+      content-visibility var(--duration-base) allow-discrete;
+  }
+  details[open]::details-content {
+    block-size: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .bloom::before {
+    display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

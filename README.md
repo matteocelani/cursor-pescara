@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cafe Cursor Pescara
 
-## Getting Started
+Sito dell'evento **Cafe Cursor Pescara** — sabato 29 agosto 2026, Riky Rock Bar.
 
-First, run the development server:
+Tre pagine, ognuna con un compito preciso:
+
+| Pagina | A cosa serve |
+| --- | --- |
+| `/` | Informazioni sull'evento: quando, dove, come partecipare, cosa portare. |
+| `/cursor` | Guida a Cursor su sei livelli, da «cos'è un programma» a MCP. Nessun riferimento all'evento: è riutilizzabile per qualsiasi Cafe Cursor. |
+| `/crediti` | Come riscattare i crediti Cursor distribuiti all'evento, passo per passo. |
+
+## La guida
+
+`/cursor` è la parte più consistente del progetto. È scritta per un pubblico
+che va da chi non ha mai sentito parlare di intelligenza artificiale a chi
+sviluppa software di professione, e per farlo usa alcune scelte precise:
+
+- **Sei livelli** nominati per quello che il lettore ottiene (`Capire cos'è`,
+  `Come funziona`, `Installarlo e provarlo`, `Usarlo bene`, `Usarlo per
+  lavoro`, `Estenderlo`), mai per quello che gli manca.
+- **Difficoltà crescente e monotona.** Ogni capitolo dichiara il proprio
+  livello con un semaforo a quattro pallini, e la difficoltà non torna mai
+  indietro fra un capitolo e il successivo.
+- **Concreto prima di astratto.** Il glossario sta al livello 4, non al
+  primo: le parole arrivano quando c'è già qualcosa a cui attaccarle.
+- **Punti di stop espliciti** dopo il livello 2 e il livello 3, che dicono al
+  lettore che può fermarsi lì.
+- **Procedure con un'azione per passaggio**, ognuna con cosa deve comparire
+  sullo schermo e un blocco «Se qualcosa va storto».
+
+I contenuti sono verificati sulla documentazione ufficiale di Cursor
+(agosto 2026, versione 3.17) e vivono in `src/lib/`, separati dai componenti.
+
+## Stack
+
+- [Next.js](https://nextjs.org) 16 (App Router) + TypeScript
+- [Tailwind CSS](https://tailwindcss.com) v4
+- [shadcn/ui](https://ui.shadcn.com) su base Radix
+- [motion](https://motion.dev) per le animazioni
+- [lucide-react](https://lucide.dev) per le icone, SVGR per i marchi
+- pnpm
+
+## Sviluppo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Prima di chiudere una modifica:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm lint
+pnpm build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Struttura
 
-## Learn More
+```
+src/
+├── app/
+│   ├── page.tsx          # /          informazioni sull'evento
+│   ├── cursor/page.tsx   # /cursor    la guida, sei livelli
+│   ├── crediti/page.tsx  # /crediti   riscatto dei crediti
+│   ├── not-found.tsx     # 404
+│   ├── icon.svg          # favicon
+│   ├── layout.tsx        # font, tema, metadata
+│   └── globals.css       # design token e decorazioni
+├── assets/icons/         # SVG dei marchi, via SVGR (?component)
+├── components/
+│   ├── motion.tsx        # Reveal, Stagger, ReadingProgress
+│   ├── level-rail.tsx    # navigazione dei livelli, con scroll-spy
+│   ├── level-section.tsx # intestazione e criterio di uscita di un livello
+│   ├── procedure.tsx     # istruzioni passo passo e flussi numerati
+│   ├── exercise.tsx      # blocchi «Provalo in Cursor» e «Approfondisci»
+│   ├── wiki.tsx          # tipografia, tabelle, tile, badge di difficoltà
+│   └── ui/               # shadcn
+└── lib/
+    ├── event.ts          # testi dell'evento e dei crediti
+    └── cursor.ts         # contenuti della guida
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Contenuti
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Tutti i testi stanno in `src/lib/`. Per correggere una data, un prezzo o una
+frase non serve toccare i componenti.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `event.ts` — dettagli dell'evento, checklist, flusso dei crediti
+- `cursor.ts` — livelli, capitoli, esercizi, glossario della guida
 
-## Deploy on Vercel
+## Convenzioni
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Le regole del progetto stanno in [`AGENTS.md`](./AGENTS.md): palette,
+tipografia, tono dei testi e vincoli sulla guida. Vanno lette prima di
+modificare il codice.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+In sintesi:
+
+- Titoli con peso normale e tracking negativo. Niente grassetto nella prosa.
+- Testo di lettura a 16px, contrasto oltre 7:1.
+- Angoli arrotondati (`--radius: 0.875rem`), hover sul bordo e non sullo sfondo.
+- Palette calda di Cursor: fondo `#14120b`, accento `#ff7a29`.
+- Tema chiaro, scuro o di sistema, con il selettore nel footer.
+- La prima schermata di una pagina non è mai animata.
+
+## Licenza
+
+MIT
