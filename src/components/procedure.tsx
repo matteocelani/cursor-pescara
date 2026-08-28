@@ -91,70 +91,87 @@ export function StepFlow({
 }
 
 export type VerticalStep = {
-  title: string;
+  title?: string;
   /** The single action to perform. */
-  action: string;
+  action?: string;
   /** What must appear on screen once it worked. */
   see?: string;
   /** Optional extra detail for whoever needs it. */
   detail?: string;
 };
 
+function StepArrow() {
+  return (
+    <div aria-hidden className="flex justify-center py-2.5">
+      <svg
+        viewBox="0 0 12 28"
+        className="h-7 w-3 text-border-strong"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      >
+        <path d="M6 1v20" />
+        <path d="M1.5 17 6 22l4.5-5" />
+      </svg>
+    </div>
+  );
+}
+
 /** Steps stacked vertically, joined by a centred arrow pointing down.
  *  Reads as a single path, which is what a beginner needs. */
-export function VerticalSteps({ steps }: { steps: readonly VerticalStep[] }) {
+export function VerticalSteps({
+  steps,
+}: {
+  steps: readonly (VerticalStep | string)[];
+}) {
+  const items = steps.map((step) =>
+    typeof step === "string" ? { title: step } : step,
+  );
+
   return (
     <ol className="space-y-0">
-      {steps.map((step, index) => (
-        <li key={step.title}>
-          <div className="rounded-lg border border-border bg-card p-4 sm:p-5">
-            <div className="flex items-center gap-3">
-              <span
-                aria-hidden
-                className="grid size-8 shrink-0 place-items-center rounded-full bg-accent text-sm font-medium text-accent-foreground tabular-nums"
-              >
-                {index + 1}
-              </span>
-              <h4 className="font-medium text-foreground">{step.title}</h4>
-            </div>
+      {items.map((step, index) => {
+        const heading = step.title ?? step.action;
+        const body = step.title ? step.action : undefined;
 
-            <p className="mt-3 leading-relaxed text-foreground-2">
-              {step.action}
-            </p>
-
-            {step.see ? (
-              <p className="mt-2 flex gap-2 text-sm text-muted-foreground">
-                <span aria-hidden className="shrink-0 text-accent">
-                  →
+        return (
+          <li key={`${heading}-${index}`}>
+            <div className="rounded-lg border border-border bg-card p-4 sm:p-5">
+              <div className="flex items-start gap-3">
+                <span
+                  aria-hidden
+                  className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full bg-accent text-sm font-medium text-accent-foreground tabular-nums"
+                >
+                  {index + 1}
                 </span>
-                <span className="italic">{step.see}</span>
-              </p>
-            ) : null}
+                <p className="font-medium text-foreground">{heading}</p>
+              </div>
 
-            {step.detail ? (
-              <p className="mt-3 border-t border-border pt-3 text-sm leading-relaxed text-muted-foreground">
-                {step.detail}
-              </p>
-            ) : null}
-          </div>
+              {body ? (
+                <p className="mt-3 leading-relaxed text-foreground-2">{body}</p>
+              ) : null}
 
-          {index < steps.length - 1 ? (
-            <div aria-hidden className="flex justify-center py-2.5">
-              <svg
-                viewBox="0 0 12 28"
-                className="h-7 w-3 text-border-strong"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              >
-                <path d="M6 1v20" />
-                <path d="M1.5 17 6 22l4.5-5" />
-              </svg>
+              {step.see ? (
+                <p className="mt-2 flex gap-2 text-sm text-muted-foreground">
+                  <span aria-hidden className="shrink-0 text-accent">
+                    →
+                  </span>
+                  <span className="italic">{step.see}</span>
+                </p>
+              ) : null}
+
+              {step.detail ? (
+                <p className="mt-3 border-t border-border pt-3 text-sm leading-relaxed text-muted-foreground">
+                  {step.detail}
+                </p>
+              ) : null}
             </div>
-          ) : null}
-        </li>
-      ))}
+
+            {index < items.length - 1 ? <StepArrow /> : null}
+          </li>
+        );
+      })}
     </ol>
   );
 }
@@ -189,11 +206,7 @@ export function Procedure({
   bare?: boolean;
 }) {
   return (
-    <div
-      className={
-        bare ? "" : "rounded-lg border border-border bg-card p-5 sm:p-6"
-      }
-    >
+    <div>
       {bare ? null : (
         <h3 className="text-xl font-normal tracking-tight text-foreground">
           {data.goal}
@@ -223,29 +236,14 @@ export function Procedure({
 
       {children}
 
-      <ol className="mt-4 space-y-4">
-        {data.steps.map((step, index) => (
-          <li key={step.do} className="flex gap-4">
-            <span
-              aria-hidden
-              className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border border-border bg-background text-sm text-muted-foreground tabular-nums"
-            >
-              {index + 1}
-            </span>
-            <div className="min-w-0">
-              <p className="leading-relaxed text-foreground-2">{step.do}</p>
-              {step.see ? (
-                <p className="mt-1 flex gap-2 text-sm text-muted-foreground italic">
-                  <span aria-hidden className="not-italic text-accent">
-                    →
-                  </span>
-                  {step.see}
-                </p>
-              ) : null}
-            </div>
-          </li>
-        ))}
-      </ol>
+      <div className="mt-4">
+        <VerticalSteps
+          steps={data.steps.map((step) => ({
+            title: step.do,
+            see: step.see,
+          }))}
+        />
+      </div>
 
       {data.done ? (
         <p className="mt-5 rounded-md border border-success/30 bg-success/10 px-4 py-3 text-sm text-foreground-2">

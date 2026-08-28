@@ -12,9 +12,17 @@ Small **Next.js + TypeScript** site for **Cafe Cursor Pescara** (29 Aug 2026).
 
 Homepage (`/`) = event info with visual tiles. Credits page (`/crediti`) = redeem
 flow, step by step. Guide page (`/cursor`) = explainer of Cursor over 6 levels
-and 25 chapters, from "what is a program" to MCP.
+and 25 chapters, from "what is a program" to MCP. Guide page (`/grok-bot`) =
+explainer of Grok Bot over 3 levels and 7 chapters.
 
-`/cursor` rules:
+`/grok-bot` starts from a reader who already knows what AI and a chatbot are —
+no basics. Its first two chapters answer "what is it" and "how is it different
+from Cursor", because that is what everyone asks. Content in `src/lib/grok.ts`.
+The product is very new and moves fast: plan eligibility already widened twice
+and official sources contradict each other, so the page says so rather than
+picking a winner.
+
+`/cursor` rules (they apply to `/grok-bot` too):
 
 - **No references to the event, the city or the date.** It must stay reusable
   for any Cafe Cursor, any day. Event-specific copy lives on `/` and `/crediti`.
@@ -67,12 +75,12 @@ in `src/app/globals.css` — never hardcode a colour in a component.
   colours clear 7:1 contrast. These pages are read by non-developers.
 - Rounded, not sharp: `--radius: 0.875rem`. Prefer `rounded-lg` on cards.
 - Hover changes the border, not the background. Use the `card-hover` utility.
-- Animation goes through `src/components/motion.tsx` (`Reveal`, `Stagger`,
-  `StaggerItem`, `ReadingProgress`). Decoration that is not motion — bloom,
-  glow border — stays in `globals.css`.
-- **Never wrap the hero of a page in `Reveal`.** Motion renders `opacity: 0`
-  into the server HTML, so a page whose first screen is animated shows blank
-  if hydration fails. Above the fold stays static.
+- Animation goes through `src/components/motion.tsx` (`Reveal`,
+  `ReadingProgress`). Decoration that is not motion — bloom, glow border —
+  stays in `globals.css`.
+- **Nothing above the fold is animated.** Motion renders `opacity: 0` into the
+  server HTML, so animating the first screen shows a blank page if hydration
+  fails. Hero copy, CTAs and the level map stay static; reveals start below.
 - Every motion component honours `useReducedMotion`.
 - Theme switch (light / dark / system) lives in `SiteFooter`, on every page.
 - Icons: `lucide-react` for generic, SVGR for brand glyphs

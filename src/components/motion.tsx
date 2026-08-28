@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useSpring } from "motion/react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -25,64 +25,6 @@ export function Reveal({
     >
       {children}
     </motion.div>
-  );
-}
-
-/** Children appear one after the other. Pair with `StaggerItem`. */
-export function Stagger({
-  children,
-  className,
-  gap = 0.06,
-  as = "div",
-}: {
-  children: ReactNode;
-  className?: string;
-  gap?: number;
-  as?: "div" | "ul" | "ol";
-}) {
-  const reduced = useReducedMotion();
-  const Component = motion[as];
-
-  return (
-    <Component
-      className={className}
-      initial={reduced ? false : "hidden"}
-      whileInView="shown"
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-      variants={{
-        hidden: {},
-        shown: { transition: { staggerChildren: gap } },
-      }}
-    >
-      {children}
-    </Component>
-  );
-}
-
-export function StaggerItem({
-  children,
-  className,
-  as = "div",
-  style,
-}: {
-  children: ReactNode;
-  className?: string;
-  as?: "div" | "li";
-  style?: CSSProperties;
-}) {
-  const Component = motion[as];
-
-  return (
-    <Component
-      className={className}
-      style={style}
-      variants={{
-        hidden: { opacity: 0, y: 10 },
-        shown: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } },
-      }}
-    >
-      {children}
-    </Component>
   );
 }
 

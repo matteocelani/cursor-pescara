@@ -26,6 +26,12 @@ export function SiteFooter() {
             Guida
           </Link>
           <Link
+            href={event.grokPath}
+            className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
+          >
+            Grok Bot
+          </Link>
+          <Link
             href={event.creditsPath}
             className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
           >

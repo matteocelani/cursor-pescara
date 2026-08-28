@@ -3,6 +3,7 @@ import {
   AlertTriangle,
   Apple,
   ArrowLeft,
+  ArrowRight,
   ArrowUpRight,
   Book,
   Boxes,
@@ -21,13 +22,13 @@ import {
   Terminal,
   Users,
 } from "lucide-react";
-import { Cursor } from "@/assets/icons";
+import { Cursor, GrokBot } from "@/assets/icons";
 import { Disclosure } from "@/components/disclosure";
 import { CopyPrompt, DeepDive, Exercise } from "@/components/exercise";
 import { LevelChips, LevelRail } from "@/components/level-rail";
 import { LevelSection } from "@/components/level-section";
-import { Procedure, StepFlow } from "@/components/procedure";
-import { ReadingProgress, Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { Procedure, VerticalSteps } from "@/components/procedure";
+import { ReadingProgress, Reveal } from "@/components/motion";
 import { SiteFooter } from "@/components/site-footer";
 import { StopPoint } from "@/components/stop-point";
 import {
@@ -41,6 +42,7 @@ import {
   Tile,
 } from "@/components/wiki";
 import { guide as g } from "@/lib/cursor";
+import { event } from "@/lib/event";
 
 const icons = {
   laptop: Laptop,
@@ -167,9 +169,9 @@ export default function CursorPage() {
               <h2 className="mb-3 font-mono text-xs tracking-wide text-muted-foreground uppercase">
                 {g.levelMap.title}
               </h2>
-              <Stagger as="ol" className="divide-y divide-border overflow-hidden rounded-lg border border-border">
+              <ol className="divide-y divide-border overflow-hidden rounded-lg border border-border">
                 {g.levelMap.rows.map((row) => (
-                  <StaggerItem as="li" key={row.id}>
+                  <li key={row.id}>
                     <a
                       href={`#${row.id}`}
                       className="group flex flex-wrap items-center gap-x-4 gap-y-1.5 p-3.5 transition-colors duration-200 hover:bg-card-hover sm:flex-nowrap"
@@ -188,9 +190,9 @@ export default function CursorPage() {
                         {row.time}
                       </span>
                     </a>
-                  </StaggerItem>
+                  </li>
                 ))}
-              </Stagger>
+              </ol>
             </div>
 
             <div className="mt-6 lg:hidden">
@@ -293,7 +295,12 @@ export default function CursorPage() {
             <LevelSection level={l2}>
               <Chapter id="il-ciclo" title="Come funziona, in cinque passaggi">
                 <Prose>{g.l2.ciclo.intro}</Prose>
-                <StepFlow steps={g.l2.ciclo.steps} />
+                <VerticalSteps
+                  steps={g.l2.ciclo.steps.map((step) => ({
+                    title: step.title,
+                    action: step.text,
+                  }))}
+                />
                 <Callout title={g.l2.ciclo.important.title} tone="accent">
                   {g.l2.ciclo.important.text}
                 </Callout>
@@ -895,6 +902,58 @@ export default function CursorPage() {
                 </div>
               </Chapter>
             </LevelSection>
+
+            {/* The next product: deliberately given weight */}
+            <Reveal>
+              <section
+                id="grok-bot"
+                className="mt-14 scroll-mt-24 border-t border-border pt-12"
+              >
+                <p className="text-xs tracking-wide text-accent uppercase">
+                  E adesso
+                </p>
+                <h2 className="mt-2 text-2xl font-normal tracking-tighter text-balance text-foreground sm:text-3xl">
+                  {g.grokNext.title}
+                </h2>
+                <p className="mt-3 max-w-[68ch] text-lg leading-relaxed text-pretty text-foreground-2">
+                  {g.grokNext.lead}
+                </p>
+
+                <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                  {g.grokNext.points.map((point) => (
+                    <div
+                      key={point.title}
+                      className="rounded-lg border border-border bg-card p-4"
+                    >
+                      <p className="font-medium text-foreground">
+                        {point.title}
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                        {point.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <Link
+                  href={event.grokPath}
+                  className="group mt-6 flex items-center gap-4 rounded-lg border border-accent/40 bg-accent-soft p-5 transition-colors duration-200 hover:border-accent/70 hover:bg-accent-soft-hover sm:p-6"
+                >
+                  <span className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground">
+                    <GrokBot className="size-6" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-lg font-medium text-foreground">
+                      {g.grokNext.cta.title}
+                    </span>
+                    <span className="mt-0.5 block text-muted-foreground">
+                      {g.grokNext.cta.text}
+                    </span>
+                  </span>
+                  <ArrowRight className="size-5 shrink-0 text-accent transition-transform duration-200 group-hover:translate-x-1" />
+                </Link>
+              </section>
+            </Reveal>
 
             {/* Closing */}
             <Reveal>

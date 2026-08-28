@@ -8,6 +8,7 @@ Tre pagine, ognuna con un compito preciso:
 | --- | --- |
 | `/` | Informazioni sull'evento: quando, dove, come partecipare, cosa portare. |
 | `/cursor` | Guida a Cursor su sei livelli, da «cos'è un programma» a MCP. Nessun riferimento all'evento: è riutilizzabile per qualsiasi Cafe Cursor. |
+| `/grok-bot` | Guida a Grok Bot su tre livelli, per chi sa già cos'è l'AI. Parte dalla differenza con un chatbot e con Cursor. |
 | `/crediti` | Come riscattare i crediti Cursor distribuiti all'evento, passo per passo. |
 
 ## La guida
@@ -61,7 +62,8 @@ pnpm build
 src/
 ├── app/
 │   ├── page.tsx          # /          informazioni sull'evento
-│   ├── cursor/page.tsx   # /cursor    la guida, sei livelli
+│   ├── cursor/page.tsx   # /cursor    guida a Cursor, sei livelli
+│   ├── grok-bot/page.tsx # /grok-bot  guida a Grok Bot, tre livelli
 │   ├── crediti/page.tsx  # /crediti   riscatto dei crediti
 │   ├── not-found.tsx     # 404
 │   ├── icon.svg          # favicon
@@ -87,7 +89,8 @@ Tutti i testi stanno in `src/lib/`. Per correggere una data, un prezzo o una
 frase non serve toccare i componenti.
 
 - `event.ts` — dettagli dell'evento, checklist, flusso dei crediti
-- `cursor.ts` — livelli, capitoli, esercizi, glossario della guida
+- `cursor.ts` — livelli, capitoli, esercizi, glossario della guida a Cursor
+- `grok.ts` — livelli e capitoli della guida a Grok Bot
 
 ## Convenzioni
 

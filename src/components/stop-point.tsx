@@ -19,7 +19,7 @@ export function StopPoint({
   leaveHref: string;
 }) {
   return (
-    <aside className="border-l-2 border-accent bg-accent-soft/50 py-5 pl-5">
+    <aside className="rounded-lg border border-accent/30 bg-accent-soft p-5">
       <h3 className="text-xl font-normal tracking-tight text-foreground">
         {title}
       </h3>

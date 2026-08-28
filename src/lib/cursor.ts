@@ -1388,6 +1388,30 @@ export const guide = {
       "Due cose da sapere: le estensioni arrivano da Open VSX e non dal Marketplace di VS Code, quindi non ci sono tutte. E ⌘K qui significa modifica in linea, non è il prefisso delle scorciatoie doppie come in VS Code.",
   },
 
+  /** Sits at the foot of the page: the product Cursor is pushing next. */
+  grokNext: {
+    title: "Il passo successivo: agenti che restano",
+    lead: "Cursor lavora sui file che hai davanti, sul tuo computer, mentre tu guardi. Grok Bot è l’altra metà: agenti che restano, con un computer nel cloud, e continuano anche a portatile chiuso.",
+    points: [
+      {
+        title: "Non è una chat",
+        text: "Un agent che crei resta, ricorda il contesto e riprende da dove aveva lasciato.",
+      },
+      {
+        title: "Ha un computer suo",
+        text: "Gira nel cloud: apre un browser, usa file, porta a termine cose senza il tuo portatile.",
+      },
+      {
+        title: "Si collega ai tuoi strumenti",
+        text: "Plugin verso i servizi che usi, e routine che partono da sole su un orario.",
+      },
+    ],
+    cta: {
+      title: "Guida a Grok Bot",
+      text: "Cos’è, in cosa è diverso da Cursor e come si crea il primo agent",
+    },
+  },
+
   shortcuts: [
     { action: "Pannello Agent", mac: "⌘I o ⌘L", win: "Ctrl+I o Ctrl+L" },
     { action: "Modifica in linea", mac: "⌘K", win: "Ctrl+K" },

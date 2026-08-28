@@ -17,7 +17,7 @@ import {
   Ticket,
   Users,
 } from "lucide-react";
-import { Telegram } from "@/assets/icons";
+import { GrokBot, Telegram } from "@/assets/icons";
 import { Reveal } from "@/components/motion";
 import { SiteFooter } from "@/components/site-footer";
 import { FeatureRow, FeatureTile, InfoCard, Tip } from "@/components/ui";
@@ -49,6 +49,12 @@ const usefulLinks = [
     Icon: Sparkles,
   },
   {
+    title: "Grok Bot",
+    detail: "Agenti che restano al lavoro",
+    href: event.grokPath,
+    Icon: GrokBot,
+  },
+  {
     title: "Riscatta i crediti",
     detail: "Istruzioni passo per passo",
     href: event.creditsPath,
@@ -71,12 +77,6 @@ const usefulLinks = [
     detail: "Guida ufficiale, in inglese",
     href: event.docsUrl,
     Icon: BookOpen,
-  },
-  {
-    title: "Riky Rock Bar",
-    detail: "Apri su Google Maps",
-    href: "https://www.google.com/maps/search/?api=1&query=Riky+Rock+Bar%2C+Via+Fernando+Francesco+d%27Avalos+60%2C+Pescara",
-    Icon: MapPin,
   },
 ] as const;
 
@@ -146,6 +146,35 @@ export default function Home() {
               </ul>
               <span className="mt-4 inline-flex items-center gap-1.5 font-medium text-accent">
                 {event.explainer.cta}
+                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </span>
+            </div>
+          </div>
+        </Link>
+      </Reveal>
+
+      {/* Grok Bot: smaller sibling of the Cursor guide card */}
+      <Reveal>
+        <Link
+          href={event.grokPath}
+          className="card-hover group mt-3 block rounded-lg border border-border bg-card p-4 sm:p-5"
+        >
+          <div className="flex items-start gap-4">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border bg-background text-accent">
+              <GrokBot className="size-5" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-medium text-accent-strong">
+                {event.grokTeaser.kicker}
+              </p>
+              <h2 className="mt-0.5 text-lg font-medium text-foreground">
+                {event.grokTeaser.title}
+              </h2>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                {event.grokTeaser.text}
+              </p>
+              <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                {event.grokTeaser.cta}
                 <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
               </span>
             </div>
@@ -246,7 +275,7 @@ export default function Home() {
             title="Crediti Cursor"
           >
             <p className="mb-4 leading-relaxed text-foreground-2">
-              Al check-in ti diamo un link o un QR code personale. La pagina
+              Al check-in ricevi un link o un QR code personale. La pagina
               dedicata ti accompagna passo per passo: cosa cliccare, cosa devi
               vedere sullo schermo e cosa fare se qualcosa non torna.
             </p>

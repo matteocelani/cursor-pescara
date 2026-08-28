@@ -8,16 +8,23 @@ export const event = {
   telegramUrl: "https://t.me/cursor_italia",
   creditsPath: "/crediti",
   cursorPath: "/cursor",
+  grokPath: "/grok-bot",
   explainer: {
     kicker: "Non sai cos’è Cursor?",
-    title: "Abbiamo scritto una guida da zero",
-    text: "Parte da cosa è l’intelligenza artificiale e arriva a come si usa Cursor, passo per passo. Sei livelli: puoi fermarti dove ti basta. Non serve saper programmare, e non serve leggerla tutta.",
+    title: "Una guida a Cursor, da zero",
+    text: "Parte da cosa è l’intelligenza artificiale e arriva a come si usa Cursor, passo per passo. Sei livelli: si può fermarsi dove basta. Non serve saper programmare, e non serve leggerla tutta.",
     points: [
       "Cos’è l’AI, spiegata senza paroloni",
       "Perché Cursor e non ChatGPT",
       "Come si installa e il primo utilizzo",
     ],
     cta: "Apri la guida",
+  },
+  grokTeaser: {
+    kicker: "Novità dell’evento",
+    title: "Grok Bot",
+    text: "Agenti che restano: un computer nel cloud, i tuoi strumenti, e il lavoro continua anche a portatile chiuso.",
+    cta: "Scopri Grok Bot",
   },
   details: [
     { label: "Quando", value: "Sabato 29 agosto 2026", icon: "calendar" as const },
@@ -50,7 +57,7 @@ export const event = {
   beforeYouCome: [
     {
       title: "Porta il laptop",
-      text: "Non abbiamo computer da fornire.",
+      text: "Non ci sono computer a disposizione.",
       icon: "laptop" as const,
     },
     {
@@ -72,25 +79,25 @@ export const event = {
       icon: "gift" as const,
     },
     {
-      title: "Ti aiutiamo noi",
-      text: "Prova qualcosa di semplice o parti dall’uso base.",
+      title: "Aiuto sul posto",
+      text: "Prova qualcosa di semplice, con qualcuno a fianco.",
       icon: "chat" as const,
     },
   ],
-  arriveNote: "Consigliamo di arrivare un po’ prima delle 16:00: alle 16 si inizia a buildare.",
+  arriveNote: "Meglio arrivare un po’ prima delle 16:00: alle 16 si inizia a buildare.",
 } as const;
 
 export const credits = {
   title: "Riscatta i tuoi crediti",
-  lead: "I crediti sono soldi da spendere dentro Cursor: servono a far lavorare l’intelligenza artificiale. Al banco d’ingresso te ne diamo un po’, gratis, con un codice personale.",
+  lead: "I crediti sono soldi da spendere dentro Cursor: servono a far lavorare l’intelligenza artificiale. Al banco d’ingresso ne ricevi un po’, gratis, con un codice personale.",
   whatAreThey: {
     title: "Cosa stai per fare, in due righe",
-    text: "Ti diamo un indirizzo internet (un link) o un quadratino da inquadrare con il telefono (un QR code). Quel link apre una pagina di Cursor con un bottone. Clicchi il bottone e i crediti finiscono sul tuo account. Fine.",
+    text: "Ricevi un indirizzo internet (un link) o un quadratino da inquadrare con il telefono (un QR code). Quel link apre una pagina di Cursor con un bottone. Clicchi il bottone e i crediti finiscono sul tuo account. Fine.",
   },
   overview: [
     {
       title: "Prendi il codice",
-      text: "Al banco d’ingresso ti diamo un link o un QR code. È solo tuo.",
+      text: "Al banco d’ingresso ricevi un link o un QR code. È solo tuo.",
     },
     {
       title: "Entra nel tuo account",
@@ -182,7 +189,7 @@ export const credits = {
       },
       {
         symptom: "Il link dice che è già stato usato.",
-        fix: "Ogni link funziona una volta sola. Vieni a cercarci: ti diamo una mano.",
+        fix: "Ogni link funziona una volta sola. Chiedi al banco d’ingresso.",
       },
       {
         symptom: "Sono su un account aziendale o di gruppo.",
@@ -207,7 +214,7 @@ export const credits = {
     },
     {
       title: "Hanno una scadenza",
-      text: "I crediti valgono per un periodo limitato: la data la trovi nella dashboard. Usali finché ci siamo.",
+      text: "I crediti valgono per un periodo limitato: la data la trovi nella dashboard. Meglio non aspettare troppo.",
       icon: "clock" as const,
     },
     {
@@ -221,8 +228,8 @@ export const credits = {
       icon: "spark" as const,
     },
     {
-      title: "Siamo lì",
-      text: "Se ti blocchi, chiedi a noi: al banco d’ingresso è la cosa più veloce.",
+      title: "Aiuto sul posto",
+      text: "Se ti blocchi, chiedi al banco d’ingresso: è la via più rapida.",
       icon: "chat" as const,
     },
   ],
